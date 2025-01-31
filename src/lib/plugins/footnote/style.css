@@ -1,0 +1,47 @@
+.footnotes {
+  margin: 0 120px;
+  padding: 20px 0;
+  font-size: 14px;
+  color: gray;
+  border-top: 1px solid #a2a9b1;
+}
+
+.footnotes ol {
+  padding-left: 16px !important;
+}
+
+.footnotes ol ul {
+  display: inline-block;
+  padding-left: 16px;
+  margin-top: 16px;
+}
+
+.footnotes li {
+  position: relative;
+}
+
+.footnotes li:target {
+  border: 2px solid #4b96e6;
+  border-radius: 6px;
+}
+
+.footnotes li:target::before {
+  content: none;
+}
+
+.footnotes .footnote-backref g-emoji {
+  font-family: monospace;
+}
+
+.footnotes a {
+  color: #4b96e6;
+}
+
+.footnotes a:hover {
+  text-decoration: underline;
+  color: #1f70de;
+}
+
+.footnotes li span p {
+  display: inline;
+}
