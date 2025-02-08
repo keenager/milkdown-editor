@@ -1,3 +1,5 @@
+import { fn_def_id } from "../../schema/footnoteDefSchema";
+
 export function moveFootnotes() {
   let $footnotes = document.querySelector(".footnotes");
   let $ol = $footnotes?.firstElementChild;
@@ -10,7 +12,7 @@ export function moveFootnotes() {
     document.querySelector(".milkdown")?.appendChild($footnotes);
   }
 
-  const fnDefArr = document.querySelectorAll(".footnote-list-item");
+  const fnDefArr = document.querySelectorAll("." + fn_def_id);
   fnDefArr.forEach((fnDef) => {
     $ol!.appendChild(fnDef);
   });

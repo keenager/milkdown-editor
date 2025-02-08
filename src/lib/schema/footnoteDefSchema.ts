@@ -2,11 +2,11 @@ import { expectDomTypeError } from "@milkdown/exception";
 import { $nodeSchema } from "@milkdown/utils";
 // import { withMeta } from "@milkdown/preset-gfm/src/__internal__";
 
-const id = "footnote_definition";
+export const fn_def_id = "footnote_definition";
 const markdownId = "footnoteDefinition";
 
 /// Footnote definition node schema.
-export const footnoteDefSchema = $nodeSchema("footnote_definition", () => ({
+export const footnoteDefSchema = $nodeSchema(fn_def_id, () => ({
   group: "block",
   content: "block+",
   defining: true,
@@ -17,12 +17,13 @@ export const footnoteDefSchema = $nodeSchema("footnote_definition", () => ({
   },
   parseDOM: [
     {
-      tag: `li[class="footnote-list-item"]`,
+      tag: `li[class=${fn_def_id}]`,
       getAttrs: (dom) => {
         if (!(dom instanceof HTMLElement)) throw expectDomTypeError(dom);
 
         return {
           id: dom.id,
+          label: dom.dataset.label,
         };
       },
       contentElement: "p",
@@ -39,11 +40,11 @@ export const footnoteDefSchema = $nodeSchema("footnote_definition", () => ({
       {
         // TODO: add a prosemirror plugin to sync label on change
         id: `fn-${label}`,
-        class: "footnote-list-item",
-        //   "data-label": label,
-        //   "data-type": id,
+        class: fn_def_id,
+        "data-label": label,
+        //   "data-type": fn_def_id,
       },
-      ["span", 0],
+      ["span", { class: "footnote-content" }, 0],
       // content,
       [
         "a",
@@ -68,7 +69,7 @@ export const footnoteDefSchema = $nodeSchema("footnote_definition", () => ({
     },
   },
   toMarkdown: {
-    match: (node) => node.type.name === id,
+    match: (node) => node.type.name === fn_def_id,
     runner: (state, node) => {
       console.log("Def toMarkdown activated...", node.type.name);
       state
